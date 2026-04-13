@@ -7,6 +7,8 @@ module ac.csg.pu {
     // SQL
     requires java.sql;
     requires io.javalin;
+    requires okhttp3;
+    requires com.fasterxml.jackson.databind;
 
     opens ac.csg.pu.gui.auth to javafx.graphics, javafx.fxml;
     opens ac.csg.pu.gui.dashboard.admin to javafx.graphics, javafx.fxml;
