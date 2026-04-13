@@ -1,5 +1,6 @@
 package ac.csg.pu.main;
 
+import ac.csg.pu.comms.RestServer;
 import ac.csg.pu.gui.AppView;
 
 /**
@@ -10,5 +11,6 @@ import ac.csg.pu.gui.AppView;
 public class Main {
     public static void main(String[] args) {
         AppView.main(args);
+        RestServer.start(8088);
     }
 }
