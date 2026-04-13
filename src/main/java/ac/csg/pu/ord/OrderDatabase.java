@@ -71,7 +71,13 @@ public class OrderDatabase {
             );
 
             items.forEach(order::addItem);
+
+            for (OrderItem item : items) {
+                logger.info("{} [{}] @£{} x{} has been retrieved.", item.productName(), item.productId(), item.purchasePrice(), item.quantity());
+            }
         }
+
+        logger.info("Order");
 
         return orders;
     }

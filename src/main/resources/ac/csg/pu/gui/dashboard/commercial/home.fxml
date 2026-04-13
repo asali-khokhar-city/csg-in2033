@@ -13,8 +13,10 @@
 
     <VBox spacing="15" alignment="TOP_CENTER" prefWidth="800">
         <Label text="Browse Products" styleClass="heading"/>
-        <HBox alignment="TOP_RIGHT" prefWidth="800">
+        <HBox alignment="TOP_RIGHT" prefWidth="800" spacing="10">
             <Button text="Cart" onAction="#toggleCart"/>
+            <Button text="Orders" onAction="#checkOrders"/>
+            <Button text="Logout" onAction="#logout"/>
         </HBox>
         <TextField fx:id="searchField"
                    promptText="Search products or promotions..."

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ac.csg.pu.gui.dashboard.commercial.OrdersController"
+            stylesheets="@../dashboard.css">
+
+    <VBox spacing="15"
+          alignment="CENTER"
+          prefWidth="500"
+          AnchorPane.topAnchor="50"
+          AnchorPane.bottomAnchor="50"
+          AnchorPane.leftAnchor="200"
+          AnchorPane.rightAnchor="200"
+          styleClass="panel">
+
+        <!-- Title -->
+        <Label text="Your Orders" styleClass="heading"/>
+
+        <!-- Orders list -->
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+            <VBox fx:id="ordersContainer" spacing="10"/>
+        </ScrollPane>
+
+        <!-- Back button -->
+        <Button text="Back" onAction="#goBack"/>
+    </VBox>
+
+</AnchorPane>

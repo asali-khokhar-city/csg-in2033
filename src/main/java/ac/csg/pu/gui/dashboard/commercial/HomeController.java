@@ -1,6 +1,7 @@
 package ac.csg.pu.gui.dashboard.commercial;
 
 import ac.csg.pu.gui.SceneHelper;
+import ac.csg.pu.gui.util.SessionManager;
 import ac.csg.pu.prm.Promotion;
 import ac.csg.pu.prm.PromotionDatabase;
 import ac.csg.pu.sales.Product;
@@ -101,6 +102,7 @@ public class HomeController {
 
         for (Promotion promo : PromotionDatabase.getActivePromotions()) {
             TitledPane pane = createPromotionPane(promo, "");
+            pane.getStyleClass().add("promo-pane");
             promotionAccordion.getPanes().add(pane);
         }
     }
@@ -181,5 +183,16 @@ public class HomeController {
         }
 
         tt.play();
+    }
+
+    @FXML
+    private void checkOrders() {
+        SceneHelper.switchScene("dashboard/commercial/orders.fxml");
+    }
+
+    @FXML
+    private void logout() {
+        SessionManager.logout();
+        SceneHelper.switchScene("auth/login.fxml");
     }
 }

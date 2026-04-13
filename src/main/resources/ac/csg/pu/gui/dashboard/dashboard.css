@@ -14,6 +14,17 @@
     -fx-text-fill: #2c3e50;
 }
 
+/* Text fields and password fields */
+.dash-input {
+    -fx-font-size: 14px;
+    -fx-padding: 10;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 1;
+    -fx-background-color: #ffffff;
+}
+
 /* Buttons */
 .button {
     -fx-background-color: #3498db;
@@ -112,4 +123,30 @@
 /* Cart overlay dim background */
 .cart-background {
     -fx-background-color: rgba(0, 0, 0, 0.4); /* semi-transparent black */
+}
+
+/* Promo Accordion */
+.promo-accordion {
+    -fx-background-color: transparent;
+}
+
+.promo-pane > .title {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdfe3;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 10;
+}
+
+.promo-pane > .title:hover {
+    -fx-background-color: #f4f6f8;
+}
+
+.promo-pane > .content {
+    -fx-background-color: transparent;
+    -fx-padding: 10 0 10 0;
+}
+
+.promo-pane > .title > .arrow-button {
+    -fx-background-color: transparent;
 }

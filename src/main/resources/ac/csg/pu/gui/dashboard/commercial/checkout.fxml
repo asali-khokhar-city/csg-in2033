@@ -23,17 +23,17 @@
         <Label fx:id="totalLabel" text="Total: £0.00" styleClass="heading"/>
 
         <!-- Payment info -->
-        <TextField fx:id="nameField" promptText="Cardholder Name"/>
-        <TextField fx:id="cardNumberField" promptText="Card Number"/>
-        <TextField fx:id="expiryField" promptText="Expiry (MM/YY)"/>
-        <TextField fx:id="cvvField" promptText="CVV"/>
-        <TextField fx:id="addressField" promptText="Delivery Address"/>
-        <TextField fx:id="guestEmailField" promptText="your@email.com"/>
+        <TextField fx:id="nameField" promptText="Cardholder Name" styleClass="dash-input"/>
+        <TextField fx:id="cardNumberField" promptText="Card Number" styleClass="dash-input"/>
+        <TextField fx:id="expiryField" promptText="Expiry (MM/YY)" styleClass="dash-input"/>
+        <TextField fx:id="cvvField" promptText="CVV" styleClass="dash-input"/>
+        <TextField fx:id="addressField" promptText="Delivery Address" styleClass="dash-input"/>
+        <TextField fx:id="guestEmailField" promptText="your@email.com" styleClass="dash-input"/>
 
         <!-- Action buttons -->
         <HBox spacing="10" alignment="CENTER">
             <Button text="Pay Now" fx:id="payButton"/>
-            <Button text="Cancel" fx:id="cancelButton"/>
+            <Button text="Exit" fx:id="exitButton"/>
         </HBox>
 
         <!-- Error / success message -->

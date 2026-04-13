@@ -4,6 +4,7 @@ import ac.csg.pu.gui.SceneHelper;
 import ac.csg.pu.gui.util.SessionManager;
 import ac.csg.pu.members.UserDatabase;
 import ac.csg.pu.members.UserType;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -40,6 +41,11 @@ public class ChangePasswordController {
 
         // Route back to login
         SessionManager.Pending.setMessage("Password changed successfully. Please log in.");
+        SessionManager.logout();
+        SceneHelper.switchScene("auth/login.fxml");
+    }
+
+    public void onCancel(ActionEvent actionEvent) {
         SessionManager.logout();
         SceneHelper.switchScene("auth/login.fxml");
     }

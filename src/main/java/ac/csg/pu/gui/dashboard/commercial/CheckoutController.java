@@ -27,7 +27,7 @@ public class CheckoutController {
     @FXML private TextField addressField;
     @FXML private TextField guestEmailField;
     @FXML private Button payButton;
-    @FXML private Button cancelButton;
+    @FXML private Button exitButton;
     @FXML private Label messageLabel;
 
     @FXML
@@ -35,7 +35,7 @@ public class CheckoutController {
         refreshSummary();
 
         payButton.setOnAction(e -> processPayment());
-        cancelButton.setOnAction(e -> returnHome());
+        exitButton.setOnAction(e -> returnHome());
 
         boolean isGuest = SessionManager.User.isGuest();
         guestEmailField.setVisible(isGuest);
@@ -112,7 +112,7 @@ public class CheckoutController {
     }
 
     private void returnHome() {
-        SceneHelper.switchScene("home.fxml");
+        SceneHelper.switchScene("dashboard/commercial/home.fxml");
     }
 
     private void processPayment() {
@@ -127,7 +127,6 @@ public class CheckoutController {
         cvvField.setDisable(disabled);
         addressField.setDisable(disabled);
         payButton.setDisable(disabled);
-        cancelButton.setDisable(disabled);
     }
 
     private void saveTransaction() {

@@ -14,7 +14,7 @@ public class Order {
     private String address;
 
     // Map of order item ID -> order item
-    private Map<Integer, OrderItem> items = new HashMap<>();;
+    private List<OrderItem> items;
 
     // ---- Constructor ----
     Order(int id, String email, OrderStatus status, LocalDate date, String address) {
@@ -28,7 +28,7 @@ public class Order {
     // ---- Getters ----
     public int getId() { return id; }
     public String getEmail() { return email; }
-    public Collection<OrderItem> getItems() { return items.values(); }
+    public Collection<OrderItem> getItems() { return items; }
     public OrderStatus getStatus() { return status; }
     public LocalDate getDate() { return date; }
     public String getAddress() { return address; }
@@ -39,7 +39,7 @@ public class Order {
     public void setAddress(String address) { this.address = address; }
 
     // ---- Item Management ----
-    public void addItem(OrderItem item) { this.items.put(-1, item); }
-    public void addItems(List<OrderItem> items) { }
+    public void addItem(OrderItem item) { this.items.add(item); }
+    public void addItems(List<OrderItem> items) { for (OrderItem item : items) { addItem(item); } }
     public void clearItems() { this.items.clear(); }
 }

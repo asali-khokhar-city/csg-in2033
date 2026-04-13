@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ac.csg.pu.gui.dashboard.commercial.OrderCardController"
+      spacing="8"
+      styleClass="panel">
+
+    <!-- Header -->
+    <HBox spacing="10">
+        <Label fx:id="statusLabel" styleClass="heading"/>
+        <Label fx:id="dateLabel"/>
+    </HBox>
+
+    <!-- Total -->
+    <Label fx:id="totalLabel" styleClass="new-price"/>
+
+    <!-- Toggle button -->
+    <Button fx:id="toggleButton" text="View Items"/>
+
+    <!-- Expandable section -->
+    <VBox fx:id="detailsBox" spacing="5" visible="false" managed="false">
+
+        <Label fx:id="addressLabel"/>
+
+        <VBox fx:id="itemsBox" spacing="3"/>
+    </VBox>
+
+</VBox>

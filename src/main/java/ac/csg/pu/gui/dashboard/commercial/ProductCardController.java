@@ -78,8 +78,6 @@ public class ProductCardController {
 
     private void setupActions() {
         addButton.setOnAction(e -> {
-            System.out.println("Added to cart: " + product.getName());
-            // TODO: connect to cart system
             Cart.incrementProduct(product, promotion);
 
             if (cartController != null) {
