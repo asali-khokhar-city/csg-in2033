@@ -11,6 +11,7 @@ def jupiterVersion = "6.0.3"
 def sqliteVersion = "3.42.0.0"
 def javalinVersion = "6.3.0"
 def jacksonVersion = "2.17.0"
+def okhttpVersion = "5.3.0"
 
 repositories {
     mavenCentral()
@@ -37,6 +38,12 @@ dependencies {
 
     implementation "io.javalin:javalin:$javalinVersion"
     implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+
+
+    // use gradle BOMs to ensure okhttp has consistent version across it's dependencies
+    implementation platform("com.squareup.okhttp3:okhttp-bom:$okhttpVersion")
+    implementation "com.squareup.okhttp3:okhttp"
+    implementation "com.squareup.okhttp3:logging-interceptor"
 }
 
 jlink {
