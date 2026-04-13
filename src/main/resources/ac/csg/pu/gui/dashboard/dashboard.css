@@ -113,3 +113,29 @@
 .cart-background {
     -fx-background-color: rgba(0, 0, 0, 0.4); /* semi-transparent black */
 }
+
+/* Promo Accordion */
+.promo-accordion {
+    -fx-background-color: transparent;
+}
+
+.promo-pane > .title {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdfe3;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 10;
+}
+
+.promo-pane > .title:hover {
+    -fx-background-color: #f4f6f8;
+}
+
+.promo-pane > .content {
+    -fx-background-color: transparent;
+    -fx-padding: 10 0 10 0;
+}
+
+.promo-pane > .title > .arrow-button {
+    -fx-background-color: transparent;
+}

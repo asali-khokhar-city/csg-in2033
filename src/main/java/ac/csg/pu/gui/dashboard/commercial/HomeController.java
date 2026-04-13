@@ -102,6 +102,7 @@ public class HomeController {
 
         for (Promotion promo : PromotionDatabase.getActivePromotions()) {
             TitledPane pane = createPromotionPane(promo, "");
+            pane.getStyleClass().add("promo-pane");
             promotionAccordion.getPanes().add(pane);
         }
     }
