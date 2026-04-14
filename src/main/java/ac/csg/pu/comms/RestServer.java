@@ -3,14 +3,25 @@ package ac.csg.pu.comms;
 import ac.csg.pu.comms.model.Mail;
 import ac.csg.pu.comms.model.Payment;
 import ac.csg.pu.comms.model.Response;
+import ac.csg.pu.ord.OrderDatabase;
 import io.javalin.Javalin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RestServer {
 
     private static Javalin app;
+    private final static Logger logger = LoggerFactory.getLogger(RestServer.class);
 
     public static void start(int port) {
+        if (app != null) {
+            logger.info("Server has already been initialised. Cannot be started again.");
+            return;
+        }
+
         app = Javalin.create().start(port);
+
+        stopOnShutdown();
 
         // Payment endpoint
         app.post("/pay", ctx -> {
@@ -29,5 +40,11 @@ public class RestServer {
 
     public static void stop() {
         if (app != null) app.stop();
+        logger.info("App has been stopped.");
+    }
+
+    public static void stopOnShutdown() {
+        Runtime.getRuntime().addShutdownHook(new Thread(
+                RestServer::stop, "Shutdown-thread"));
     }
 }
