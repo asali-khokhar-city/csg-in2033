@@ -5,17 +5,20 @@
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="ac.csg.pu.gui.dashboard.commercial.CartCardController"
-      spacing="5" styleClass="cart-card" style="-fx-padding: 10; -fx-border-color: #dcdfe3; -fx-border-radius: 5; -fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5,0,0,2);">
+      spacing="6"
+      styleClass="cart-card">
 
-    <HBox spacing="5">
-        <Label fx:id="nameLabel" styleClass="heading"/>
+    <HBox spacing="6" alignment="CENTER_LEFT">
+        <Label fx:id="nameLabel" styleClass="cart-item-name" HBox.hgrow="ALWAYS"/>
         <Label fx:id="promotionLabel" styleClass="promo"/>
     </HBox>
 
-    <HBox spacing="5" alignment="CENTER_LEFT">
-        <Button fx:id="minusButton" text="–"/>
-        <Label fx:id="quantityLabel"/>
-        <Button fx:id="plusButton" text="+"/>
-        <Label fx:id="totalPriceLabel" styleClass="new-price"/>
+    <HBox spacing="8" alignment="CENTER_LEFT">
+        <Button fx:id="minusButton" text="−" styleClass="qty-button"/>
+        <Label  fx:id="quantityLabel" style="-fx-font-size:13px; -fx-font-weight:bold; -fx-text-fill:#1a2340;"/>
+        <Button fx:id="plusButton"  text="+" styleClass="qty-button"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label  fx:id="totalPriceLabel" styleClass="new-price"/>
     </HBox>
+
 </VBox>

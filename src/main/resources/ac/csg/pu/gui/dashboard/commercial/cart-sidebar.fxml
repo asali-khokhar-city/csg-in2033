@@ -1,28 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
 <AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="ac.csg.pu.gui.dashboard.commercial.CartController"
             stylesheets="@../dashboard.css"
-            prefWidth="300"
-            styleClass="panel cart-background">
+            prefWidth="320"
+            styleClass="cart-sidebar">
 
-    <VBox spacing="10"
+    <VBox spacing="12"
           AnchorPane.topAnchor="0"
           AnchorPane.bottomAnchor="0"
           AnchorPane.leftAnchor="0"
-          AnchorPane.rightAnchor="0"
-          styleClass="spacing-medium">
+          AnchorPane.rightAnchor="0">
 
-        <Label text="Your Cart" styleClass="heading" HBox.hgrow="ALWAYS"/>
-
-        <ListView fx:id="cartListView" VBox.vgrow="ALWAYS"/>
-
-        <HBox spacing="10">
-            <Button text="Checkout" fx:id="checkoutButton"/>
-            <Button text="Close" fx:id="closeButton"/>
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="8">
+            <Label text="🛒  Your Cart" styleClass="cart-title"/>
         </HBox>
+
+        <Separator/>
+
+        <!-- Cart items list -->
+        <ListView fx:id="cartListView" VBox.vgrow="ALWAYS"
+                  styleClass="list-view"
+                  style="-fx-background-color: transparent;"/>
+
+        <Separator/>
+
+        <!-- Action buttons -->
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="✔  Checkout" fx:id="checkoutButton" styleClass="nav-button-primary"
+                    style="-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-size:13px; -fx-padding: 9 20; -fx-background-radius:8;"/>
+            <Button text="✕  Close"    fx:id="closeButton"    styleClass="nav-button"
+                    style="-fx-font-size:13px; -fx-padding: 9 20; -fx-background-radius:8;"/>
+        </HBox>
+
     </VBox>
 
 </AnchorPane>

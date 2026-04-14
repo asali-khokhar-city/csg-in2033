@@ -6,11 +6,13 @@ import ac.csg.pu.sales.Cart;
 import ac.csg.pu.sales.Product;
 import ac.csg.pu.sales.ProductFeed;
 import ac.csg.pu.test.TestDataInitializer;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 public class ProductCardController {
 
@@ -25,6 +27,7 @@ public class ProductCardController {
     private Product product;
     private Promotion promotion;
     private CartController cartController;
+    private HomeController homeController;
 
     private final ProductFeed productFeed = TestDataInitializer.getProductFeed();
 
@@ -33,7 +36,6 @@ public class ProductCardController {
 
         nameLabel.setText(product.getName());
 
-        // Merchant lookup
         String merchantName = productFeed.getMerchant(product.getMerchantId()).getName();
         merchantLabel.setText(merchantName);
 
@@ -42,7 +44,6 @@ public class ProductCardController {
         originalPriceLabel.setText(String.format("£%.2f", displayPrice));
         vatLabel.setText(product.isVatExempt() ? "(VAT exempt)" : "(incl. VAT)");
 
-        // Placeholder image
         productImage.setImage(new Image(
                 getClass().getResource("img/placeholder.png").toExternalForm()
         ));
@@ -70,11 +71,9 @@ public class ProductCardController {
 
         nameLabel.setText(product.getName());
 
-        // Merchant lookup
         String merchantName = productFeed.getMerchant(product.getMerchantId()).getName();
         merchantLabel.setText(merchantName);
 
-        // Placeholder image
         productImage.setImage(new Image(
                 getClass().getResource("img/placeholder.png").toExternalForm()
         ));
@@ -86,11 +85,34 @@ public class ProductCardController {
         addButton.setOnAction(e -> {
             Cart.incrementProduct(product, promotion);
 
-            if (cartController != null) {
-                cartController.refreshCartList();
-            }
+            if (cartController != null) cartController.refreshCartList();
+            if (homeController != null) homeController.updateCartBadge();
+
+            // Transfer focus away from the button so the ScrollPane doesn't auto-scroll to it
+            addButton.getParent().requestFocus();
+
+            String originalText = addButton.getText();
+            String originalStyle = addButton.getStyle();
+
+            addButton.setText("✓ Added!");
+            addButton.setStyle("-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 12px; -fx-font-weight: bold; -fx-padding: 6 14; -fx-background-radius: 18; -fx-cursor: hand;");
+            addButton.setDisable(true);
+
+            PauseTransition pause = new PauseTransition(Duration.millis(900));
+            pause.setOnFinished(ev -> {
+                addButton.setText(originalText);
+                addButton.setStyle(originalStyle);
+                addButton.setDisable(false);
+            });
+            pause.play();
         });
     }
 
-    public void setCartController(CartController cartController) { this.cartController = cartController; }
+    public void setCartController(CartController cartController) {
+        this.cartController = cartController;
+    }
+
+    public void setHomeController(HomeController homeController) {
+        this.homeController = homeController;
+    }
 }

@@ -25,22 +25,26 @@ public class SceneHelper {
     public static void switchScene(String fxmlPath) {
         Stage stage = getPrimaryStage();
         try {
+            // Remember current size so the window doesn't resize on scene change
+            double currentWidth  = stage.getWidth();
+            double currentHeight = stage.getHeight();
+
             Parent root = FXMLLoader.load(SceneHelper.class.getResource(fxmlPath));
-            Scene scene = new Scene(root); // size comes from FXML layout
+            Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.sizeToScene();          // adjust window to new scene
-            stage.centerOnScreen();
+
+            // Restore the same dimensions instead of shrinking/growing
+            stage.setWidth(currentWidth);
+            stage.setHeight(currentHeight);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load FXML: " + fxmlPath, e);
         }
     }
 
-    // Get stage from node
     public static Stage getStage(javafx.scene.Node node) {
         if (node == null || node.getScene() == null) {
             throw new IllegalArgumentException("Node is not attached to a scene yet.");
         }
         return (Stage) node.getScene().getWindow();
     }
-
 }

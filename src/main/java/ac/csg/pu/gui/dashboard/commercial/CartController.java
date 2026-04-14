@@ -11,6 +11,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CartController {
 
     @FXML private ListView<CartItem> cartListView;
@@ -18,6 +21,8 @@ public class CartController {
     @FXML private Button closeButton;
 
     private static final ObservableList<CartItem> cartItems = FXCollections.observableArrayList();
+
+    private HomeController homeController;
 
     @FXML
     public void initialize() {
@@ -49,10 +54,25 @@ public class CartController {
     }
 
     public void refreshCartList() {
-        cartItems.setAll(Cart.getItems().values());
+        List<CartItem> latest = new ArrayList<>(Cart.getItems().values());
+
+        for (CartItem item : latest) {
+            if (!cartItems.contains(item)) cartItems.add(item);
+        }
+
+        // removeIf triggers a targeted list change rather than a full replacement,
+        // which keeps the ListView scroll position stable
+        cartItems.removeIf(item -> !latest.contains(item));
+
+        cartListView.refresh();
+
+        if (homeController != null) homeController.updateCartBadge();
     }
 
-    public Button getCloseButton() { return this.closeButton; }
+    public void setHomeController(HomeController homeController) {
+        this.homeController = homeController;
+    }
 
+    public Button getCloseButton()    { return this.closeButton; }
     public Button getCheckoutButton() { return this.checkoutButton; }
 }
