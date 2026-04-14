@@ -27,10 +27,10 @@ public class TestDataInitializer {
     }
 
     public static void initProducts() {
-        productFeed.addProduct(new Product(1, "Aspirin", 5.0, 1));
-        productFeed.addProduct(new Product(2, "Analgin", 7.5, 1));
-        productFeed.addProduct(new Product(3, "Celebrex, caps 100 mg", 20.0, 2));
-        productFeed.addProduct(new Product(4, "Retin-A Tretin, 30 g", 15.0, 2));
+        productFeed.addProduct(new Product(1, "Aspirin", 5.0, 1, false));
+        productFeed.addProduct(new Product(2, "Analgin", 7.5, 1, false));
+        productFeed.addProduct(new Product(3, "Celebrex, caps 100 mg", 20.0, 2, false));
+        productFeed.addProduct(new Product(4, "Retin-A Tretin, 30 g", 15.0, 2, false));
     }
 
     // Call this method to populate test users
