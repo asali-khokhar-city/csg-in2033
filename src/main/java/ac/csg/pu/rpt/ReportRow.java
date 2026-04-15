@@ -5,39 +5,36 @@ import javafx.beans.property.StringProperty;
 
 public class ReportRow {
 
-    private final StringProperty category;
-    private final StringProperty metric;
-    private final StringProperty value;
-    private final StringProperty period;
+    private final StringProperty productId;
+    private final StringProperty productName;
+    private final StringProperty unitPrice;
+    private final StringProperty purchasePrice;
+    private final StringProperty quantity;
+    private final StringProperty total;
 
-    public ReportRow(String category, String metric, String value, String period) {
-        this.category = new SimpleStringProperty(category);
-        this.metric = new SimpleStringProperty(metric);
-        this.value = new SimpleStringProperty(value);
-        this.period = new SimpleStringProperty(period);
+    public ReportRow(String productId, String productName,
+                     String unitPrice, String purchasePrice,
+                     String quantity, String total) {
+
+        this.productId = new SimpleStringProperty(productId);
+        this.productName = new SimpleStringProperty(productName);
+        this.unitPrice = new SimpleStringProperty(unitPrice);
+        this.purchasePrice = new SimpleStringProperty(purchasePrice);
+        this.quantity = new SimpleStringProperty(quantity);
+        this.total = new SimpleStringProperty(total);
     }
 
-    public String getCategory() {return category.get();}
+    public StringProperty productIdProperty() { return productId; }
+    public StringProperty productNameProperty() { return productName; }
+    public StringProperty unitPriceProperty() { return unitPrice; }
+    public StringProperty purchasePriceProperty() { return purchasePrice; }
+    public StringProperty quantityProperty() { return quantity; }
+    public StringProperty totalProperty() { return total; }
 
-    public void setCategory(String category) {this.category.set(category);}
-
-    public StringProperty categoryProperty() {return category;}
-
-    public String getMetric() {return metric.get();}
-
-    public void setMetric(String metric) {this.metric.set(metric);}
-
-    public StringProperty metricProperty() {return metric;}
-
-    public String getValue() {return value.get();}
-
-    public void setValue(String value) {this.value.set(value);}
-
-    public StringProperty valueProperty() {return value;}
-
-    public String getPeriod() {return period.get();}
-
-    public void setPeriod(String period) {this.period.set(period);}
-
-    public StringProperty periodProperty() {return period;}
+    public String getProductId() { return productId.get(); }
+    public String getProductName() { return productName.get(); }
+    public String getUnitPrice() { return unitPrice.get(); }
+    public String getPurchasePrice() { return purchasePrice.get(); }
+    public String getQuantity() { return quantity.get(); }
+    public String getTotal() { return total.get(); }
 }

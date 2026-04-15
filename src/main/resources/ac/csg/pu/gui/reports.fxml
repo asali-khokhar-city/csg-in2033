@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" alignment="TOP_CENTER"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ac.csg.pu.gui.reports.ReportsController"
+      stylesheets="@dashboard/dashboard.css"
+      prefWidth="900"
+      styleClass="root">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Report Generation" styleClass="heading"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Back" onAction="#onBack"/>
+        <ComboBox fx:id="reportTypeBox" promptText="Select report type" prefWidth="180"/>
+        <DatePicker fx:id="fromDate"/>
+        <DatePicker fx:id="toDate"/>
+        <Button text="Generate Report" onAction="#onGenerate"/>
+        <Button text="Export PDF" onAction="#onExport"/>
+    </HBox>
+
+    <TableView fx:id="reportTable">
+        <columns>
+            <TableColumn fx:id="productIdColumn" text="Product ID" />
+            <TableColumn fx:id="productNameColumn" text="Product Name" />
+            <TableColumn fx:id="unitPriceColumn" text="Unit Price" />
+            <TableColumn fx:id="purchasePriceColumn" text="Purchase Price" />
+            <TableColumn fx:id="quantityColumn" text="Quantity" />
+            <TableColumn fx:id="totalColumn" text="Total" />
+        </columns>
+    </TableView>
+
+    <Label fx:id="statusLabel" styleClass="error"/>
+</VBox>
