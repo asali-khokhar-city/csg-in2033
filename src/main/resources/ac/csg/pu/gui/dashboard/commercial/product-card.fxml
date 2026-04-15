@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -8,31 +9,26 @@
       fx:controller="ac.csg.pu.gui.dashboard.commercial.ProductCardController"
       spacing="8"
       alignment="TOP_CENTER"
-      prefWidth="150"
-      stylesheets="@../dashboard.css"
-      styleClass="panel">
+      prefWidth="180"
+      stylesheets="@../dashboard.css, @../components.css"
+      styleClass="product-card">
 
-    <!-- Placeholder Image -->
     <ImageView fx:id="productImage"
                fitWidth="120"
                fitHeight="120"
                preserveRatio="true"/>
 
-    <!-- Product Name -->
-    <Label fx:id="nameLabel" wrapText="true"/>
+    <Label fx:id="nameLabel" wrapText="true" styleClass="product-name" maxWidth="160" alignment="CENTER"/>
+    <Label fx:id="merchantLabel" styleClass="product-merchant"/>
 
-    <!-- Merchant -->
-    <Label fx:id="merchantLabel" style="-fx-text-fill: #7f8c8d; -fx-font-size: 11px;"/>
+    <VBox alignment="CENTER_LEFT" spacing="2">
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label fx:id="originalPriceLabel" styleClass="normal-price"/>
+            <Label fx:id="discountedPriceLabel" styleClass="discounted-price" visible="false"/>
+        </HBox>
+        <Label fx:id="vatLabel" styleClass="vat-label"/>
+    </VBox>
 
-    <!-- Price + Button -->
-    <HBox spacing="10" alignment="CENTER">
-        <VBox alignment="CENTER_LEFT" spacing="2">
-            <HBox spacing="5">
-                <Label fx:id="originalPriceLabel" styleClass="normal-price" />
-                <Label fx:id="discountedPriceLabel" styleClass="new-price" visible="false" />
-            </HBox>
-            <Label fx:id="vatLabel" style="-fx-text-fill: #7f8c8d; -fx-font-size: 10px;"/>
-        </VBox>
-        <Button text="Add" fx:id="addButton"/>
-    </HBox>
+    <Button text="Add to Cart" fx:id="addButton" styleClass="add-button" maxWidth="Infinity"/>
+
 </VBox>

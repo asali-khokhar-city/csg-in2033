@@ -1,6 +1,5 @@
 package ac.csg.pu.gui.dashboard.commercial;
 
-import ac.csg.pu.gui.dashboard.admin.PromotionsController;
 import ac.csg.pu.ord.Order;
 import ac.csg.pu.ord.OrderItem;
 import javafx.fxml.FXML;
@@ -17,25 +16,21 @@ public class OrderCardController {
     @FXML private Label dateLabel;
     @FXML private Label totalLabel;
     @FXML private Label addressLabel;
-
     @FXML private VBox detailsBox;
     @FXML private VBox itemsBox;
     @FXML private Button toggleButton;
 
     private boolean expanded = false;
 
-    private final static Logger logger = LoggerFactory.getLogger(OrderCardController.class);
+    private static final Logger logger = LoggerFactory.getLogger(OrderCardController.class);
 
     public VBox create(Order order) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("order-card.fxml"));
             VBox root = loader.load();
-
             OrderCardController controller = loader.getController();
             controller.bind(order);
-
             return root;
-
         } catch (Exception e) {
             e.printStackTrace();
             return new VBox();
@@ -49,20 +44,19 @@ public class OrderCardController {
 
         for (OrderItem item : order.getItems()) {
             Label itemLabel = new Label(
-                    item.productName() +
-                            " x" + item.quantity() +
-                            " - £" + String.format("%.2f", item.getTotalPrice())
+                item.productName() + " x" + item.quantity() + " - £" + String.format("%.2f", item.getTotalPrice())
             );
+            itemLabel.getStyleClass().add("order-item-label");
             total += item.getTotalPrice();
             itemsBox.getChildren().add(itemLabel);
             logger.info("Rendering product: {}", item.productName());
         }
 
-        logger.info("Item size count of order #{}: {}", order.getId(), order.getItems().size());
+        logger.info("Item count for order #{}: {}", order.getId(), order.getItems().size());
 
         statusLabel.setText(order.getStatus().toString());
         dateLabel.setText(order.getDate().toString());
-        addressLabel.setText(order.getAddress());
+        addressLabel.setText("Delivery: " + order.getAddress());
         totalLabel.setText(String.format("£%.2f", total));
 
         toggleButton.setOnAction(e -> toggle());

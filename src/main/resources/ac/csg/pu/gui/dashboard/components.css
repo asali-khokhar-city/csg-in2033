@@ -43,6 +43,11 @@
     -fx-text-fill: #c0392b;
 }
 
+.vat-label {
+    -fx-font-size: 10px;
+    -fx-text-fill: #7a8faa;
+}
+
 .add-button {
     -fx-background-color: #ff9900;
     -fx-text-fill: #0a0e1a;
@@ -217,5 +222,11 @@
 
 .order-address {
     -fx-font-size: 12px;
-    -fx-text-fill: #555;
+    -fx-text-fill: #7a8faa;
+    -fx-font-style: italic;
+}
+
+.order-item-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #1a2340;
 }
