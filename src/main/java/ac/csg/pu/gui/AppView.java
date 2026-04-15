@@ -16,8 +16,6 @@ public class AppView extends Application {
 
     @Override
     public void init() {
-        RestServer.start(8090);
-
         UserDatabase.createTable();
         PromotionDatabase.createTables();
         OrderDatabase.createTables();

@@ -10,6 +10,7 @@ import ac.csg.pu.gui.AppView;
  */
 public class Main {
     public static void main(String[] args) {
+        RestServer.start(8090);
         AppView.main(args);
         RestServer.start(8090);
     }

@@ -45,6 +45,31 @@ public class OrderDatabase {
         return db.executeInsert(sql, customerEmail, status, date, address);
     }
 
+    public static boolean orderExists(int orderId) {
+        String sql = "SELECT EXISTS(SELECT 1 FROM orders WHERE id = ?)";
+        return db.queryBoolean(sql, orderId);
+    }
+
+    public static Order getOrder(int orderId) {
+        String sql = "SELECT * FROM orders WHERE id=?";
+
+        Order order = db.querySingle(
+            sql, rs -> new Order(
+                    rs.getInt("id"),
+                    rs.getString("customer_email"),
+                    OrderStatus.valueOf(rs.getString("status")),
+                    LocalDate.parse(rs.getString("date")),
+                    rs.getString("address")
+            ), orderId
+        );
+
+        if (order != null) {
+            populateOrderItems(order);
+        }
+
+        return order;
+    }
+
     public static List<Order> getOrders(String email) {
         String sql = "SELECT * FROM orders WHERE customer_email=? ORDER BY date DESC";
 
@@ -58,28 +83,30 @@ public class OrderDatabase {
             ), email
         );
 
-        sql = "SELECT product_id, product_name, purchase_price, quantity FROM order_items WHERE order_id=?";
-
         for (Order order : orders) {
-            List<OrderItem> items = db.queryMultiple(
-                sql, rs -> new OrderItem(
-                    rs.getInt("product_id"),
-                    rs.getString("product_name"),
-                    rs.getDouble("purchase_price"),
-                    rs.getInt("quantity")
-                ), order.getId()
-            );
-
-            items.forEach(order::addItem);
-
-            for (OrderItem item : items) {
-                logger.info("{} [{}] @£{} x{} has been retrieved.", item.productName(), item.productId(), item.purchasePrice(), item.quantity());
-            }
+            populateOrderItems(order);
         }
 
-        logger.info("Order");
-
         return orders;
+    }
+
+    private static void populateOrderItems(Order order) {
+        String sql = "SELECT product_id, product_name, purchase_price, quantity FROM order_items WHERE order_id=?";
+
+        List<OrderItem> items = db.queryMultiple(
+                sql, rs -> new OrderItem(
+                        rs.getInt("product_id"),
+                        rs.getString("product_name"),
+                        rs.getDouble("purchase_price"),
+                        rs.getInt("quantity")
+                ), order.getId()
+        );
+
+        items.forEach(order::addItem);
+
+        for (OrderItem item : items) {
+            logger.info("{} [{}] @£{} x{} has been retrieved.", item.productName(), item.productId(), item.purchasePrice(), item.quantity());
+        }
     }
 
     public static void deleteOrder(int orderId) {

@@ -14,7 +14,7 @@ public class Order {
     private String address;
 
     // Map of order item ID -> order item
-    private List<OrderItem> items;
+    private List<OrderItem> items = new ArrayList<>();;
 
     // ---- Constructor ----
     Order(int id, String email, OrderStatus status, LocalDate date, String address) {
