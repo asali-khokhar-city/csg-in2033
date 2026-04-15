@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.*?>
+
 <?import javafx.scene.control.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="ac.csg.pu.gui.dashboard.commercial.CartCardController"
@@ -10,15 +10,15 @@
 
     <HBox spacing="6" alignment="CENTER_LEFT">
         <Label fx:id="nameLabel" styleClass="cart-item-name" HBox.hgrow="ALWAYS"/>
-        <Label fx:id="promotionLabel" styleClass="promo"/>
+        <Label fx:id="promotionLabel" styleClass="promo-tag"/>
     </HBox>
 
     <HBox spacing="8" alignment="CENTER_LEFT">
-        <Button fx:id="minusButton" text="−" styleClass="qty-button"/>
-        <Label  fx:id="quantityLabel" style="-fx-font-size:13px; -fx-font-weight:bold; -fx-text-fill:#1a2340;"/>
+        <Button fx:id="minusButton" text="-" styleClass="qty-button"/>
+        <Label  fx:id="quantityLabel" styleClass="cart-item-qty"/>
         <Button fx:id="plusButton"  text="+" styleClass="qty-button"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <Label  fx:id="totalPriceLabel" styleClass="new-price"/>
+        <Label  fx:id="totalPriceLabel" styleClass="cart-item-price"/>
     </HBox>
 
 </VBox>

@@ -2,6 +2,8 @@ package ac.csg.pu.gui.dashboard.commercial;
 
 import ac.csg.pu.sales.Cart;
 import ac.csg.pu.sales.CartItem;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,7 +24,7 @@ public class CartController {
 
     private static final ObservableList<CartItem> cartItems = FXCollections.observableArrayList();
 
-    private HomeController homeController;
+    private final IntegerProperty itemCount = new SimpleIntegerProperty(0);
 
     @FXML
     public void initialize() {
@@ -60,19 +62,20 @@ public class CartController {
             if (!cartItems.contains(item)) cartItems.add(item);
         }
 
-        // removeIf triggers a targeted list change rather than a full replacement,
-        // which keeps the ListView scroll position stable
+        // removeIf makes targeted removals so the ListView scroll position stays stable
         cartItems.removeIf(item -> !latest.contains(item));
 
         cartListView.refresh();
 
-        if (homeController != null) homeController.updateCartBadge();
+        itemCount.set(
+            Cart.getItems().values().stream().mapToInt(CartItem::getQuantity).sum()
+        );
     }
 
-    public void setHomeController(HomeController homeController) {
-        this.homeController = homeController;
+    public IntegerProperty itemCountProperty() {
+        return itemCount;
     }
 
-    public Button getCloseButton()    { return this.closeButton; }
-    public Button getCheckoutButton() { return this.checkoutButton; }
+    public Button getCloseButton()    { return closeButton; }
+    public Button getCheckoutButton() { return checkoutButton; }
 }

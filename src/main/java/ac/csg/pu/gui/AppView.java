@@ -16,6 +16,8 @@ public class AppView extends Application {
 
     @Override
     public void init() {
+        RestServer.start(8090);
+
         UserDatabase.createTable();
         PromotionDatabase.createTables();
         OrderDatabase.createTables();
@@ -28,8 +30,6 @@ public class AppView extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("auth/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
-
-        // Reasonable default size - not too large, landscape-friendly
         stage.setWidth(1100);
         stage.setHeight(720);
         stage.setMinWidth(800);

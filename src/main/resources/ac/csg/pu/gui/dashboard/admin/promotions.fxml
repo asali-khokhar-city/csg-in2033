@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -6,24 +7,24 @@
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="ac.csg.pu.gui.dashboard.admin.PromotionsController"
-      stylesheets="@../dashboard.css"
-      styleClass="auth-container"
+      stylesheets="@../dashboard.css, @../components.css"
+      styleClass="panel"
       prefWidth="600">
 
-    <Label text="Promotion Management" styleClass="auth-title"/>
+    <Label text="Promotion Management" styleClass="heading"/>
 
     <VBox spacing="20" alignment="CENTER" maxWidth="425">
         <HBox spacing="10">
-            <Button text="Add Promotion" onAction="#onAddPromotion" styleClass="auth-button"/>
-            <Button text="Refresh" onAction="#onRefresh" styleClass="auth-button"/>
+            <Button text="Add Promotion" onAction="#onAddPromotion"/>
+            <Button text="Refresh" onAction="#onRefresh"/>
         </HBox>
 
         <TableView fx:id="promotionsTable">
             <columns>
-                <TableColumn fx:id="colName" text="Name" prefWidth="150"/>
-                <TableColumn fx:id="colStart" text="Start Date" prefWidth="100"/>
-                <TableColumn fx:id="colEnd" text="End Date" prefWidth="100"/>
-                <TableColumn fx:id="colActive" text="Active" prefWidth="70"/>
+                <TableColumn fx:id="colName"   text="Name"       prefWidth="150"/>
+                <TableColumn fx:id="colStart"  text="Start Date" prefWidth="100"/>
+                <TableColumn fx:id="colEnd"    text="End Date"   prefWidth="100"/>
+                <TableColumn fx:id="colActive" text="Active"     prefWidth="70"/>
             </columns>
         </TableView>
     </VBox>

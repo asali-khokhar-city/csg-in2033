@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="ac.csg.pu.gui.dashboard.commercial.CheckoutController"
-            stylesheets="@../dashboard.css"
-            style="-fx-background-color: #f0f2f5;">
+            stylesheets="@../dashboard.css, @../components.css"
+            styleClass="page-background">
 
     <VBox spacing="14" alignment="CENTER"
           prefWidth="460"
@@ -16,45 +17,33 @@
           AnchorPane.rightAnchor="170"
           styleClass="panel">
 
-        <!-- Title -->
-        <Label text="💳  Checkout" styleClass="label heading"/>
+        <Label text="Checkout" styleClass="heading"/>
 
         <Separator/>
 
-        <!-- Cart summary -->
-        <VBox fx:id="summaryBox" spacing="6"
-              style="-fx-background-color:#f8f9fd; -fx-border-color:#dde3ee; -fx-border-radius:8; -fx-background-radius:8; -fx-padding:12;">
-            <!-- populated dynamically -->
-        </VBox>
+        <VBox fx:id="summaryBox" spacing="6" styleClass="checkout-summary"/>
 
-        <!-- Total -->
-        <Label fx:id="totalLabel" text="Total: £0.00" styleClass="label heading"
-               style="-fx-font-size:18px; -fx-text-fill:#1976d2;"/>
+        <Label fx:id="totalLabel" text="Total: 0.00" styleClass="checkout-total"/>
 
         <Separator/>
 
-        <!-- Payment fields -->
-        <Label text="Payment Details" style="-fx-font-size:13px; -fx-font-weight:bold; -fx-text-fill:#7a8faa;"/>
-        <TextField fx:id="nameField"       promptText="Cardholder Name"   styleClass="dash-input" maxWidth="Infinity"/>
-        <TextField fx:id="cardNumberField" promptText="Card Number"        styleClass="dash-input" maxWidth="Infinity"/>
+        <Label text="Payment Details" styleClass="payment-label"/>
+        <TextField fx:id="nameField"       promptText="Cardholder Name"  styleClass="dash-input" maxWidth="Infinity"/>
+        <TextField fx:id="cardNumberField" promptText="Card Number"       styleClass="dash-input" maxWidth="Infinity"/>
 
         <HBox spacing="12">
-            <TextField fx:id="expiryField" promptText="Expiry (MM/YY)"    styleClass="dash-input" HBox.hgrow="ALWAYS"/>
-            <TextField fx:id="cvvField"    promptText="CVV"                styleClass="dash-input" prefWidth="90"/>
+            <TextField fx:id="expiryField" promptText="Expiry (MM/YY)"   styleClass="dash-input" HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="cvvField"    promptText="CVV"               styleClass="dash-input" prefWidth="90"/>
         </HBox>
 
-        <TextField fx:id="addressField"    promptText="Delivery Address"   styleClass="dash-input" maxWidth="Infinity"/>
-        <TextField fx:id="guestEmailField" promptText="your@email.com"     styleClass="dash-input" maxWidth="Infinity"/>
+        <TextField fx:id="addressField"    promptText="Delivery Address"  styleClass="dash-input" maxWidth="Infinity"/>
+        <TextField fx:id="guestEmailField" promptText="your@email.com"    styleClass="dash-input" maxWidth="Infinity"/>
 
-        <!-- Action buttons -->
         <HBox spacing="12" alignment="CENTER">
-            <Button text="✔  Pay Now" fx:id="payButton"
-                    style="-fx-background-color:#1976d2; -fx-text-fill:white; -fx-font-weight:bold; -fx-padding:10 28; -fx-background-radius:8; -fx-font-size:14px; -fx-cursor:hand;"/>
-            <Button text="✕  Cancel" fx:id="exitButton"
-                    style="-fx-background-color:#e8edf5; -fx-text-fill:#1a2340; -fx-font-weight:bold; -fx-padding:10 28; -fx-background-radius:8; -fx-font-size:14px; -fx-cursor:hand;"/>
+            <Button text="Pay Now" fx:id="payButton"  styleClass="pay-button"/>
+            <Button text="Cancel"  fx:id="exitButton" styleClass="cancel-button"/>
         </HBox>
 
-        <!-- Status message -->
         <Label fx:id="messageLabel" styleClass="error" wrapText="true" maxWidth="Infinity"/>
 
     </VBox>

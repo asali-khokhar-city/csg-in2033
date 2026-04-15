@@ -4,7 +4,6 @@ import ac.csg.pu.gui.SceneHelper;
 import ac.csg.pu.gui.util.SessionManager;
 import ac.csg.pu.prm.Promotion;
 import ac.csg.pu.prm.PromotionDatabase;
-import ac.csg.pu.sales.Cart;
 import ac.csg.pu.sales.Product;
 import ac.csg.pu.sales.ProductFeed;
 import ac.csg.pu.test.TestDataInitializer;
@@ -44,7 +43,25 @@ public class HomeController {
         setupSearch();
         loadProducts();
         loadPromotions();
-        updateCartBadge();
+    }
+
+    private void setupCartSidebar() {
+        cartOverlay.widthProperty().bind(root.widthProperty());
+        cartOverlay.heightProperty().bind(root.heightProperty());
+
+        cartSidebar.setVisible(false);
+        cartSidebar.setManaged(false);
+        cartSidebar.setTranslateX(300);
+
+        cartSidebarController.getCloseButton().setOnAction(e -> toggleCart());
+        cartSidebarController.getCheckoutButton().setOnAction(e -> SceneHelper.switchScene("dashboard/commercial/checkout.fxml"));
+
+        // Bind the badge count to the cart's item count property
+        cartSidebarController.itemCountProperty().addListener((obs, oldVal, newVal) -> {
+            int count = newVal.intValue();
+            cartBadge.setVisible(count > 0);
+            cartBadge.setText(String.valueOf(count));
+        });
     }
 
     private void setupSearch() {
@@ -73,7 +90,6 @@ public class HomeController {
             Node card = loader.load();
             ProductCardController controller = loader.getController();
             controller.setCartController(cartSidebarController);
-            controller.setHomeController(this);
             if (promotion != null) {
                 controller.setProduct(product, promotion);
             } else {
@@ -97,7 +113,7 @@ public class HomeController {
             TilePane tile = new TilePane();
             tile.setHgap(16);
             tile.setVgap(16);
-            tile.setStyle("-fx-background-color: transparent;");
+            tile.getStyleClass().add("promo-tile");
 
             boolean hasProducts = false;
 
@@ -113,39 +129,12 @@ public class HomeController {
             if (!hasProducts) continue;
 
             Label heading = new Label(promo.getName());
-            heading.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1a2340; -fx-padding: 4 0 4 0;");
+            heading.getStyleClass().add("promo-heading");
 
             VBox section = new VBox(6, heading, tile);
-            section.setStyle("-fx-background-color: white; -fx-padding: 14; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: #e0e6ef; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 5, 0, 0, 2);");
+            section.getStyleClass().add("promo-section");
             promotionsBox.getChildren().add(section);
         }
-    }
-
-    public void updateCartBadge() {
-        int total = Cart.getItems().values().stream()
-                .mapToInt(item -> item.getQuantity())
-                .sum();
-        if (total > 0) {
-            cartBadge.setText(String.valueOf(total));
-            cartBadge.setVisible(true);
-        } else {
-            cartBadge.setVisible(false);
-        }
-    }
-
-    private void setupCartSidebar() {
-        cartOverlay.widthProperty().bind(root.widthProperty());
-        cartOverlay.heightProperty().bind(root.heightProperty());
-
-        cartSidebar.setVisible(false);
-        cartSidebar.setManaged(false);
-        cartSidebar.setTranslateX(300);
-
-        // CartController needs this reference so it can update the badge when +/- is used
-        cartSidebarController.setHomeController(this);
-
-        cartSidebarController.getCloseButton().setOnAction(e -> toggleCart());
-        cartSidebarController.getCheckoutButton().setOnAction(e -> SceneHelper.switchScene("dashboard/commercial/checkout.fxml"));
     }
 
     @FXML

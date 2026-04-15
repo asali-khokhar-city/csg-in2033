@@ -7,8 +7,8 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="ac.csg.pu.gui.dashboard.commercial.OrdersController"
-            stylesheets="@../dashboard.css"
-            style="-fx-background-color: #f0f2f5;">
+            stylesheets="@../dashboard.css, @../components.css"
+            styleClass="page-background">
 
     <VBox spacing="16"
           AnchorPane.topAnchor="40"
@@ -17,18 +17,14 @@
           AnchorPane.rightAnchor="180"
           styleClass="panel">
 
-        <!-- Header row -->
         <HBox alignment="CENTER_LEFT" spacing="12">
-            <Button text="←  Back" onAction="#goBack" styleClass="nav-button"
-                    style="-fx-font-size:12px; -fx-padding: 7 14; -fx-background-radius:7;"/>
-            <Label text="📦  Your Orders" styleClass="label heading"/>
+            <Button text="Back" onAction="#goBack" styleClass="back-button"/>
+            <Label text="Your Orders" styleClass="heading"/>
         </HBox>
 
         <Separator/>
 
-        <!-- Orders list -->
-        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
-                    style="-fx-background-color: transparent; -fx-border-color: transparent;">
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
             <VBox fx:id="ordersContainer" spacing="12">
                 <padding>
                     <Insets top="4" right="4" bottom="4" left="4"/>

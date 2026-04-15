@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -6,30 +7,30 @@
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="ac.csg.pu.gui.dashboard.admin.PromotionEditController"
-      stylesheets="@../dashboard.css"
-      styleClass="auth-container">
+      stylesheets="@../dashboard.css, @../components.css"
+      styleClass="panel">
 
-    <Label text="Edit Promotion" styleClass="auth-title"/>
+    <Label text="Edit Promotion" styleClass="heading"/>
 
     <Label text="Name:"/>
-    <TextField fx:id="nameField"/>
+    <TextField fx:id="nameField" styleClass="dash-input"/>
 
     <HBox spacing="20">
         <VBox spacing="5">
             <Label text="Start Date (yyyy-MM-dd):"/>
-            <TextField fx:id="startDateField"/>
+            <TextField fx:id="startDateField" styleClass="dash-input"/>
         </VBox>
         <VBox spacing="5">
             <Label text="End Date (yyyy-MM-dd):"/>
-            <TextField fx:id="endDateField"/>
+            <TextField fx:id="endDateField" styleClass="dash-input"/>
         </VBox>
     </HBox>
 
     <Label text="Product Discounts:"/>
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <TextField fx:id="productIdField" promptText="Product ID" prefWidth="100"/>
-        <TextField fx:id="discountField" promptText="Discount %" prefWidth="100"/>
-        <Button text="Update" onAction="#onUpdateDiscount" styleClass="auth-button"/>
+        <TextField fx:id="productIdField" promptText="Product ID" prefWidth="100" styleClass="dash-input"/>
+        <TextField fx:id="discountField"  promptText="Discount %"  prefWidth="100" styleClass="dash-input"/>
+        <Button text="Update" onAction="#onUpdateDiscount"/>
     </HBox>
 
     <ListView fx:id="discountListView" prefHeight="120"/>
@@ -37,7 +38,7 @@
     <Label fx:id="errorLabel" styleClass="auth-error"/>
 
     <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Button text="Cancel" onAction="#onCancel" styleClass="auth-button"/>
-        <Button text="Save" onAction="#onSave" styleClass="auth-button"/>
+        <Button text="Cancel" onAction="#onCancel"/>
+        <Button text="Save"   onAction="#onSave"/>
     </HBox>
 </VBox>
