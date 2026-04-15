@@ -19,6 +19,9 @@ module ac.csg.pu {
     exports ac.csg.pu.gui;
     exports ac.csg.pu.prm;
     exports ac.csg.pu.sales;
+    exports ac.csg.pu.comms.model;
+    exports ac.csg.pu.comms;
+    exports ac.csg.pu.ord;
     exports ac.csg.pu.gui.dashboard.commercial;
     opens ac.csg.pu.gui.dashboard.commercial to javafx.fxml, javafx.graphics;
 }
