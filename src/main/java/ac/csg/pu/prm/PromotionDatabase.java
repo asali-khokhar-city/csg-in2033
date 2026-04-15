@@ -22,7 +22,8 @@ public class PromotionDatabase {
             + "name TEXT NOT NULL,"
             + "active INTEGER DEFAULT 1,"
             + "start_date TEXT,"
-            + "end_date TEXT"
+            + "end_date TEXT,"
+            + "discount_percent REAL DEFAULT 0"
             + ");";
         db.executeUpdate(promoTable);
 
@@ -34,14 +35,18 @@ public class PromotionDatabase {
             + "FOREIGN KEY(promotion_id) REFERENCES promotions(id)"
             + ");";
         db.executeUpdate(discountTable);
-
+        db.executeUpdate("ALTER TABLE promotion_discounts ADD COLUMN hits INTEGER DEFAULT 0");
+        db.executeUpdate("ALTER TABLE promotion_discounts ADD COLUMN purchases INTEGER DEFAULT 0");
         logger.info("Promotion tables created");
     }
 
     // ---- Promotion management ----
+    public static int insertPromotion(String name, boolean active, String startDate, String endDate, double discountPercent) {
+        String sql = "INSERT INTO promotions(name, active, start_date, end_date, discount_percent) VALUES(?, ?, ?, ?, ?)";
+        return db.executeInsert(sql, name, active ? 1 : 0, startDate, endDate, discountPercent);
+    }
     public static int insertPromotion(String name, boolean active, String startDate, String endDate) {
-        String sql = "INSERT INTO promotions(name, active, start_date, end_date) VALUES(?, ?, ?, ?)";
-        return db.executeInsert(sql, name, active ? 1 : 0, startDate, endDate);
+        return insertPromotion(name, active, startDate, endDate, 0);
     }
 
     public static void deletePromotion(int promotionId) {

@@ -30,6 +30,7 @@ public class OrderDatabase {
             + "order_id INTEGER NOT NULL,"
             + "product_id INTEGER NOT NULL,"
             + "product_name TEXT NOT NULL,"
+            + "unit_price REAL NOT NULL,"
             + "purchase_price REAL NOT NULL,"
             + "quantity INTEGER NOT NULL,"
             + "FOREIGN KEY(order_id) REFERENCES orders(id)"
@@ -91,12 +92,13 @@ public class OrderDatabase {
     }
 
     private static void populateOrderItems(Order order) {
-        String sql = "SELECT product_id, product_name, purchase_price, quantity FROM order_items WHERE order_id=?";
+        String sql = "SELECT product_id, product_name, unit_price, purchase_price, quantity FROM order_items WHERE order_id=?";
 
         List<OrderItem> items = db.queryMultiple(
                 sql, rs -> new OrderItem(
                         rs.getInt("product_id"),
                         rs.getString("product_name"),
+                        rs.getDouble("unit_price"),
                         rs.getDouble("purchase_price"),
                         rs.getInt("quantity")
                 ), order.getId()
@@ -120,7 +122,7 @@ public class OrderDatabase {
     }
 
     public static Map<Integer, OrderItem> getItemMap(int orderId) {
-        String sql = "SELECT item_id, product_id, product_name, purchase_price, quantity FROM order_items WHERE order_id=?";
+        String sql = "SELECT item_id, product_id, product_name, unit_price, purchase_price, quantity FROM order_items WHERE order_id=?";
 
         Map<Integer, OrderItem> itemMap = new HashMap<>();
 
@@ -128,6 +130,7 @@ public class OrderDatabase {
             itemMap.put(rs.getInt("item_id"), new OrderItem(
                     rs.getInt("product_id"),
                     rs.getString("product_name"),
+                    rs.getDouble("unit_price"),
                     rs.getDouble("purchase_price"),
                     rs.getInt("quantity")
             ));

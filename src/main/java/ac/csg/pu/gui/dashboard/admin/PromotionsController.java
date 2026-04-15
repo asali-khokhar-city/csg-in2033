@@ -197,4 +197,9 @@ public class PromotionsController {
         // Refresh table
         promotionsTable.getItems().remove(promotion);
     }
+    @FXML
+    private void onReportsClick() {
+        System.out.println("Reports button clicked");
+        SceneHelper.switchScene("reports.fxml");
+    }
 }
