@@ -11,7 +11,8 @@ public class MailService {
     private static final String SMTP_HOST = "smtp.gmail.com";
     private static final int SMTP_PORT = 587;
     private static final String EMAIL = "csg.in2033@gmail.com";
-    private static final String APP_PASSWORD = "eepu brvm yefw fdmh";
+    // REPLACE WITH REAL PASSWORD
+    private static final String APP_PASSWORD = "EMAIL APP PASSWORD";
 
     public static Response process(Mail mail) {
         Response res = new Response();
