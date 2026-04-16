@@ -121,6 +121,19 @@ public class OrderDatabase {
         return db.executeInsert(sql, orderId, productId, productName, unitPrice, purchasePrice, quantity);
     }
 
+    public static boolean updateOrderStatus(int orderId, String status) {
+        try {
+            db.executeUpdate(
+                    "UPDATE orders SET status = ? WHERE id = ?",
+                    status,
+                    orderId
+            );
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     public static Map<Integer, OrderItem> getItemMap(int orderId) {
         String sql = "SELECT item_id, product_id, product_name, unit_price, purchase_price, quantity FROM order_items WHERE order_id=?";
 
