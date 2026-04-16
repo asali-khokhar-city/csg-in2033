@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,21 +19,21 @@ public class PromotionDatabase {
     // ---- Table creation ----
     public static void createTables() {
         String promoTable = "CREATE TABLE IF NOT EXISTS promotions ("
-            + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + "name TEXT NOT NULL,"
-            + "active INTEGER DEFAULT 1,"
-            + "start_date TEXT,"
-            + "end_date TEXT"
-            + ");";
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "name TEXT NOT NULL,"
+                + "active INTEGER DEFAULT 1,"
+                + "start_date TEXT,"
+                + "end_date TEXT"
+                + ");";
         db.executeUpdate(promoTable);
 
         String discountTable = "CREATE TABLE IF NOT EXISTS promotion_discounts ("
-            + "promotion_id INTEGER NOT NULL,"
-            + "product_id INTEGER NOT NULL,"
-            + "discount_percent REAL NOT NULL,"
-            + "PRIMARY KEY(promotion_id, product_id),"
-            + "FOREIGN KEY(promotion_id) REFERENCES promotions(id)"
-            + ");";
+                + "promotion_id INTEGER NOT NULL,"
+                + "product_id INTEGER NOT NULL,"
+                + "discount_percent REAL NOT NULL,"
+                + "PRIMARY KEY(promotion_id, product_id),"
+                + "FOREIGN KEY(promotion_id) REFERENCES promotions(id)"
+                + ");";
         db.executeUpdate(discountTable);
 
         logger.info("Promotion tables created");
@@ -62,16 +63,16 @@ public class PromotionDatabase {
 
     public static Map<Integer, Double> getDiscountMap(int promotionId) {
         String sql = "SELECT product_id, discount_percent " +
-            "FROM promotion_discounts " +
-            "WHERE promotion_id = ?";
+                "FROM promotion_discounts " +
+                "WHERE promotion_id = ?";
 
         Map<Integer, Double> discountMap = new HashMap<>();
 
         db.queryMultiple(
-            sql, rs -> {
-                discountMap.put(rs.getInt("product_id"), rs.getDouble("discount_percent"));
-                return null;
-            }, promotionId
+                sql, rs -> {
+                    discountMap.put(rs.getInt("product_id"), rs.getDouble("discount_percent"));
+                    return null;
+                }, promotionId
         );
 
         return discountMap;
@@ -151,5 +152,40 @@ public class PromotionDatabase {
     public static String getEndDate(int promotionId) {
         String sql = "SELECT end_date FROM promotions WHERE id=?";
         return db.queryString(sql, promotionId);
+    }
+
+    /**
+     * Check for overlapping promotions with the same merchant's product
+     * Returns a list of conflicting promotion names
+     *
+     * @param productId The product to check
+     * @param merchantId The merchant ID of the product
+     * @param startDate Start date of the new promotion
+     * @param endDate End date of the new promotion
+     * @param excludePromotionId Promotion ID to exclude from check (for editing existing promotions)
+     * @return List of conflicting promotion names
+     */
+    public static List<String> getOverlappingPromotions(int productId, int merchantId, String startDate, String endDate, Integer excludePromotionId) {
+        // Find all active promotions that:
+        // 1. Have a discount for this product
+        // 2. Have overlapping dates
+        // 3. Are not the promotion being edited
+
+        String sql = "SELECT DISTINCT p.id, p.name " +
+                "FROM promotions p " +
+                "JOIN promotion_discounts pd ON p.id = pd.promotion_id " +
+                "WHERE pd.product_id = ? " +
+                "AND p.active = 1 " +
+                "AND p.id != ? " +
+                "AND NOT (p.end_date < ? OR p.start_date > ?)";
+
+        List<String> conflicts = new ArrayList<>();
+
+        db.queryMultiple(sql, rs -> {
+            conflicts.add(rs.getString("name"));
+            return null;
+        }, productId, excludePromotionId != null ? excludePromotionId : -1, startDate, endDate);
+
+        return conflicts;
     }
 }
