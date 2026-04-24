@@ -178,7 +178,7 @@ public class CheckoutController {
                 Mail mail = new Mail();
                 mail.receivers = new String[]{customerEmail};
                 mail.subject = "Order Confirmation #" + orderId;
-                mail.body = "http://localhost:8090/mail/track/" + orderId;
+                mail.body = "http://localhost:8090/order/track/" + orderId;
 
                 MailService.process(mail);
             } catch (Exception e) {
